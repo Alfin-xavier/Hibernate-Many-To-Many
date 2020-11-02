@@ -6,9 +6,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -61,7 +64,9 @@ public class Project_Details
 		this.p_name = p_name;
 	}
 
-	@ManyToMany(mappedBy = "project",cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "employee",joinColumns = {@JoinColumn(name = "p_id")}, 
+					inverseJoinColumns = {@JoinColumn(name = "t_id")})
 	public Set<Team_Details> getTeam_det() 
 	{
 		return team_det;
