@@ -1,6 +1,8 @@
 package com.atmecs.many_to_many.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,7 +29,17 @@ public class Team_Details
     @Column(name = "t_name")
 	private String t_name;
 	
-	private Set<Project_Details> project_det = new HashSet<Project_Details>();
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "employee",joinColumns = {@JoinColumn(name = "t_id")}, 
+					inverseJoinColumns = {@JoinColumn(name = "p_id")})
+	private List<Project_Details> project_det ;
+
+	
+	
+	public List<Project_Details> getProject_det() 
+	{
+		return project_det;
+	}
 
 	public int getT_id() 
 	{
@@ -51,19 +63,13 @@ public class Team_Details
 
 	public void addProject(Project_Details project_det)
 	{
+		if(this.project_det==null)
+			this.project_det = new ArrayList<>();
 		this.project_det.add(project_det);
+		//project_det.addTeam(this);
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name = "employee",joinColumns = {@JoinColumn(name = "t_id")}, 
-					inverseJoinColumns = {@JoinColumn(name = "p_id")})
-	
-	public Set<Project_Details> getProject_det() 
-	{
-		return project_det;
-	}
-
-	public void setProject_det(Set<Project_Details> project_det) 
+	public void setProject_det(List<Project_Details> project_det) 
 	{
 		this.project_det = project_det;
 	}

@@ -18,9 +18,9 @@
         <!-- Specifying Session Context -->
         <property name="current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
  
-        <!-- Mapping With Model Class Containing Annotations -->
-		<!-- <mapping class ="com.atmecs.one_to_many.entity.Team_Details.java" />   
-		<mapping class ="com.atmecs.one_to_many.entity.Employee_Details.java" />      -->
+       <!-- Mapping With Model Class Containing Annotations -->
+	<!-- 	<mapping class ="com.atmecs.many_to_many.entity.Team_Details.java" />   
+		<mapping class ="com.atmecs.many_to_many.entity.Project_Details.java" />     -->
        
     </session-factory>
 </hibernate-configuration>

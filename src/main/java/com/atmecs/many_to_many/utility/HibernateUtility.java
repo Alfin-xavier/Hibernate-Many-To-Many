@@ -3,6 +3,7 @@ package com.atmecs.many_to_many.utility;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 import com.atmecs.many_to_many.entity.Project_Details;
 import com.atmecs.many_to_many.entity.Team_Details;
 

@@ -1,8 +1,9 @@
 package com.atmecs.many_to_many.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,10 @@ public class Project_Details
 	@Column(name = "p_name")
 	private String p_name;
 	
-	private Set<Team_Details> team_det = new HashSet<Team_Details>();
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "employee",joinColumns = {@JoinColumn(name = "p_id")}, 
+					inverseJoinColumns = {@JoinColumn(name = "t_id")})
+	private List<Team_Details> team_det ;
 	
 	public Project_Details(String p_name) 
 	{
@@ -36,7 +40,11 @@ public class Project_Details
 
 	public void addTeam(Team_Details team_det)
 	{
+		if(this.team_det==null)
+			this.team_det = new ArrayList<>();
 		this.team_det.add(team_det);
+		//team_det.addProject(this);
+		
 	}
 	
 	public Project_Details() 
@@ -64,15 +72,12 @@ public class Project_Details
 		this.p_name = p_name;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name = "employee",joinColumns = {@JoinColumn(name = "p_id")}, 
-					inverseJoinColumns = {@JoinColumn(name = "t_id")})
-	public Set<Team_Details> getTeam_det() 
+	public List<Team_Details> getTeam_det() 
 	{
 		return team_det;
 	}
 
-	public void setTeam_det(Set<Team_Details> team_det)
+	public void setTeam_det(List<Team_Details> team_det)
 	{
 		this.team_det = team_det;
 	}
